@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TwilioModule } from './twilio/twilio.module';
-import { SignalModule } from './signal/signal.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
-  imports: [TwilioModule, SignalModule]
+  imports: [TwilioModule, MailModule],
 })
 export class IntegrationsModule {}
