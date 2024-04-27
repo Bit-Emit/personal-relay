@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build the Docker image
-        run: docker build . --tag ghcr.io/Mporuben/personal-relay
+        run: docker build . --tag ghcr.io/mporuben/personal-relay
 
       - name: Log into Github
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login https://ghcr.io -u Mporuben --password-stdin
