@@ -12,12 +12,12 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build the Docker image
-        run: docker build . --tag ghcr.io/mporuben/personal-relay
+        run: docker build . --tag ghcr.io/bit-emit/personal-relay
 
       - name: Log into Github
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login https://ghcr.io -u Mporuben --password-stdin
 
       - name: Push image to registry
         run: |
-          IMAGE_ID=ghcr.io/mporuben/personal-relay:latest
+          IMAGE_ID=ghcr.io/bit-emit/personal-relay:latest
           docker push $IMAGE_ID
