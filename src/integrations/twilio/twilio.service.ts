@@ -40,7 +40,7 @@ export class TwilioService {
   // }
 
   publishMessage(message: string, from: string) {
-    console.log('publishMessage', message, from)
+    console.log('publishMessage', message, from);
     this.eventEmitter.emit('message.twilio', new MessageEvent(message, from));
   }
 }
