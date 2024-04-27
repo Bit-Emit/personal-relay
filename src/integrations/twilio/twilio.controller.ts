@@ -9,8 +9,7 @@ export class TwilioController {
     console.log(request);
     console.log(Object.keys(request));
     // @ts-ignore
-    const query = request.query.body;
-    this.twilioService.publishMessage(query.Body, query.From);
+    this.twilioService.publishMessage(request.query.Body, request.query.From);
     return 'twilio webhook return';
   }
 }

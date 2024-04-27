@@ -14,13 +14,17 @@ export class MailService {
   async sendMail() {}
   @OnEvent(getConfig().integrations.mail.listener.on)
   handleOrderCreatedEvent(meesage: MessageEvent) {
+    const content = `
+      From: ${meesage.from}
+      Message: ${meesage.text}
+    `;
     try {
       this.mailerService.sendMail({
         to: config.integrations.mail.listener.sendTo, // list of receivers
         from: config.integrations.mail.user, // sender address
         subject: 'Personal Relay 🔌', // Subject line
-        text: meesage.text, // plaintext body
-        html: meesage.text, // HTML body content
+        text: content, // plaintext body
+        html: content, // HTML body content
       });
       this.logger.log('Email sent');
     } catch (err) {
