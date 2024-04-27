@@ -1,0 +1,23 @@
+name: Release docker images
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  app-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build the Docker image
+        run: docker build . --tag ghcr.io/Mporuben/personal-relay
+
+      - name: Log into Github
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login https://ghcr.io -u Mporuben --password-stdin
+
+      - name: Push image to registry
+        run: |
+          IMAGE_ID=ghcr.io/Mporuben/personal-relay:latest
+          docker push $IMAGE_ID
