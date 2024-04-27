@@ -15,7 +15,7 @@ export class MailService {
   @OnEvent(getConfig().integrations.mail.listener.on)
   handleOrderCreatedEvent(meesage: MessageEvent) {
     const content = `
-      From: ${meesage.from}
+      From: ${meesage.from} \n
       Message: ${meesage.text}
     `;
     try {

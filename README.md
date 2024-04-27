@@ -8,16 +8,41 @@ resending them to other channels. Are you tired of spam callers? Buy twilio numb
 ![Personal relay](./doc/title.png)
 
 ## Integrations
-- Twilio
-- Email
+- [Twilio](./doc/twilio.md)
+- [Email](./doc/email.md)
 
 Feel free to add more integrations 😉
 
 
 ## Setup
 
+1. Create `config.json` file
+
+2. create `docker-compose.yml`
+```yml
+version: '3.9'
+
+services:
+  personal-relay:
+    container_name: personal-relay
+    image: ghcr.io/bit-emit/personal-relay:latest
+    volumes:
+        - ./config.json:/app/config.json
+    ports:  ['3000:3000']
+    expose:
+      - 3000
+
+```
+
+3. Run container
+```bash
+docker compose up -d
+```
+
+
 ## Configuration
 Relay is configured using `config.json` file. Here is example configuration file:
+
 ```
 {
   "port": 3000,
@@ -39,11 +64,25 @@ Relay is configured using `config.json` file. Here is example configuration file
     }
   }
 }
-
 ```
+- **port** - port on which relay will listen
+- **host** - host on which relay will listen
+- **integrations**
+  - **twilio**
+    - **accountSid** - Twilio account SID
+    - **token** - Twilio token
+  - **mail**
+    - **host** - SMTP server host
+    - **user** - SMTP server user
+    - **password** - SMTP server password
+    - **listener**
+      - **on** - event on which to listen
+      - **sendTo** - email to which to send messages
 
-
-
+  
+### Listeners
+Listeners are used to listen for events and forward them to other channels. Listeners are configured in `config.json` file.
+Events follow pattern `message.{nameOfIntegration}`. For example, to listen for Twilio messages, you would use `message.twilio.*`.
 
 ## Development
 
@@ -78,5 +117,4 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
 
